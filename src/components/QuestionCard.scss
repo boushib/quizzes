@@ -1,0 +1,39 @@
+.question-card {
+  width: 400px;
+  max-width: 100%;
+  background-color: rgba(#fff, 0.18);
+  border-radius: 12px;
+  margin: 20px auto;
+  padding: 20px;
+  // box-shadow: 0 10px 40px rgba(#000, 0.08);
+  .question {
+    font-size: 16px;
+    margin: 12px auto;
+    color: rgba(#fff, 0.9);
+  }
+  .answer {
+    background-color: rgba(#fff, 0.16);
+    color: #fff;
+    margin: 10px auto;
+    padding: 14px;
+    border-radius: 30px;
+    border: none;
+    display: block;
+    width: 100%;
+    outline: none;
+    cursor: pointer;
+    &:disabled {
+      opacity: 0.5;
+    }
+    &.correct {
+      background-color: #4caf50;
+    }
+    &.wrong {
+      background-color: #f44336;
+    }
+    &.correct,
+    &.wrong {
+      opacity: 0.8;
+    }
+  }
+}
