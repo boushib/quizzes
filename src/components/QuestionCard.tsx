@@ -8,6 +8,8 @@ type Props = {
   answers: string[]
   userAnswer: any
   checkAnswer: Function
+  nextQuestion: Function
+  isGameEnded: boolean
 }
 
 const QuestionCard: React.FC<Props> = ({
@@ -17,6 +19,8 @@ const QuestionCard: React.FC<Props> = ({
   answers,
   userAnswer,
   checkAnswer,
+  nextQuestion,
+  isGameEnded,
 }) => (
   <div className="question-card">
     <h1>
@@ -36,6 +40,15 @@ const QuestionCard: React.FC<Props> = ({
         dangerouslySetInnerHTML={{ __html: answer }}
       ></button>
     ))}
+    {isGameEnded ? (
+      <button className="btn submit" onClick={() => nextQuestion()}>
+        Calculate my result
+      </button>
+    ) : (
+      <button className="btn submit" onClick={() => nextQuestion()}>
+        Next Question
+      </button>
+    )}
   </div>
 )
 
