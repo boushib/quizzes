@@ -1,0 +1,28 @@
+.toast {
+  color: rgba(#fff, 0.8);
+  width: 320px;
+  padding: 14px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  border-radius: 2px;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  img {
+    margin-right: 12px;
+    opacity: 0.8;
+  }
+  &.success {
+    background-color: #4aa255;
+  }
+  &.error {
+    background-color: #c74243;
+  }
+  &.warning {
+    background-color: #df954b;
+  }
+  &.info {
+    background-color: #3dabc6;
+  }
+}

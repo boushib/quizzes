@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 
 import QuestionCard from '../components/QuestionCard'
 import Spinner from '../components/spinner/Spinner'
+import Toast from '../components/toast/Toast'
 import { fetchTrivia, Difficulty } from '../api'
 import { QuestionState } from '../models/question'
 const TOTAL_QUESTIONS = 10
@@ -22,6 +23,11 @@ interface IState {
   userScore: number
   isGameOver: boolean
   isGameEnded: boolean
+  toast: {
+    type: string
+    message: string
+    isDisplayed: boolean
+  }
 }
 
 interface IProps {}
@@ -39,6 +45,11 @@ class Quiz extends React.PureComponent<IProps, IState> {
       userScore: 0,
       isGameOver: true,
       isGameEnded: true,
+      toast: {
+        type: 'error',
+        message: '',
+        isDisplayed: false,
+      },
     }
   }
 
@@ -67,17 +78,24 @@ class Quiz extends React.PureComponent<IProps, IState> {
   }
 
   nextQuestion = () => {
-    console.log('next question...')
     const { isGameEnded, userAnswers, currentQuestion } = this.state
     if (isGameEnded) this.setState({ isGameEnded: true })
     if (userAnswers && userAnswers[currentQuestion]) this.setState({ currentQuestion: currentQuestion + 1 })
-    else alert('you should choose a answer before moving to the next question!')
+    else this.displayToast('Please choose a answer!', 'error')
+  }
+
+  displayToast = (message: string, type: string) => {
+    this.setState({ toast: { message, type, isDisplayed: true } })
+    setTimeout(() => {
+      this.setState({ toast: { message: '', type: '', isDisplayed: false } })
+    }, 3000)
   }
 
   render() {
-    const { isBusy, questions, currentQuestion, userAnswers, userScore, isGameOver, isGameEnded } = this.state
+    const { isBusy, questions, currentQuestion, userAnswers, userScore, isGameOver, isGameEnded, toast } = this.state
     return (
       <div className="quiz-container">
+        {toast.isDisplayed ? <Toast type={toast.type} message={toast.message} /> : null}
         {questions.length ? (
           <React.Fragment>
             {isGameOver && currentQuestion === TOTAL_QUESTIONS ? (
