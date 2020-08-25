@@ -15,7 +15,7 @@ type UserAnswer = {
   isCorrect: boolean
 }
 
-interface IState {
+type State = {
   isBusy: boolean
   questions: QuestionState[]
   currentQuestion: number
@@ -30,14 +30,14 @@ interface IState {
   }
 }
 
-interface IProps {}
+type Props = {}
 
 let toastTimeout: any
 
-class Quiz extends React.PureComponent<IProps, IState> {
-  state: IState
+class Quiz extends React.Component<Props, State> {
+  state: State
 
-  constructor(props: IProps) {
+  constructor(props: Props) {
     super(props)
     this.state = {
       isBusy: true,

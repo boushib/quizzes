@@ -97,3 +97,44 @@ a {
   min-height: 100vh;
   padding: 20px;
 }
+
+// grid
+.container {
+  padding: 0 120px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  h2 {
+    color: #fff;
+    font-size: 28px;
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 20px;
+  }
+  form {
+    background-color: rgba(#fff, 0.1);
+    width: 360px;
+    padding: 32px;
+    border-radius: 10px;
+    .btn {
+      margin: 0 auto;
+    }
+  }
+}
+
+input[type='text'],
+input[type='email'],
+input[type='password'] {
+  border: none;
+  outline: none;
+  padding: 12px 28px;
+  border-radius: 20px;
+  width: 100%;
+  background-color: #fff;
+  margin-bottom: 16px;
+}
