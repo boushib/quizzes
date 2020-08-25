@@ -32,6 +32,8 @@ interface IState {
 
 interface IProps {}
 
+let toastTimeout: any
+
 class Quiz extends React.PureComponent<IProps, IState> {
   state: IState
 
@@ -86,7 +88,8 @@ class Quiz extends React.PureComponent<IProps, IState> {
 
   displayToast = (message: string, type: string) => {
     this.setState({ toast: { message, type, isDisplayed: true } })
-    setTimeout(() => {
+    clearTimeout(toastTimeout)
+    toastTimeout = setTimeout(() => {
       this.setState({ toast: { message: '', type: '', isDisplayed: false } })
     }, 3000)
   }
