@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
 import { useHistory, Link } from 'react-router-dom'
 import './Signup.scss'
@@ -12,6 +12,7 @@ type State = {
   email: string
   password: string
   passwordConfirmation: string
+  signupMethod: string | null
 }
 
 type Props = {
@@ -27,6 +28,7 @@ class Signup extends React.PureComponent<Props, State> {
       email: '',
       password: '',
       passwordConfirmation: '',
+      signupMethod: null,
     }
   }
 
@@ -59,23 +61,37 @@ class Signup extends React.PureComponent<Props, State> {
       <div className="signup auth-page">
         <form onSubmit={this.signup}>
           <h2>Signup</h2>
-          <input type="text" name="username" placeholder="Choose a username" onChange={this.handleInputChange} />
-          <input type="email" name="email" placeholder="Enter your email" onChange={this.handleInputChange} />
-          <input type="password" name="password" placeholder="Choose a password" onChange={this.handleInputChange} />
-          <input
-            type="password"
-            name="passwordConfirmation"
-            placeholder="Confirm your password"
-            onChange={this.handleInputChange}
-          />
-          <button className="btn">Signup</button>
-          <div className="sep">OR</div>
-          <button className="btn google" onClick={this.signupWithGoogle}>
-            Signup with Google
-          </button>
-          <button className="btn facebook" onClick={this.signupWithFacebook}>
-            Signup with Facebook
-          </button>
+          {this.state.signupMethod === 'email' ? (
+            <React.Fragment>
+              <input type="text" name="username" placeholder="Choose a username" onChange={this.handleInputChange} />
+              <input type="email" name="email" placeholder="Enter your email" onChange={this.handleInputChange} />
+              <input
+                type="password"
+                name="password"
+                placeholder="Choose a password"
+                onChange={this.handleInputChange}
+              />
+              <input
+                type="password"
+                name="passwordConfirmation"
+                placeholder="Confirm your password"
+                onChange={this.handleInputChange}
+              />
+              <button className="btn">Signup</button>
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              <button className="btn" onClick={() => this.setState({ signupMethod: 'email' })}>
+                Signup with Email
+              </button>
+              <button className="btn google" onClick={this.signupWithGoogle}>
+                Signup with Google
+              </button>
+              <button className="btn facebook" onClick={this.signupWithFacebook}>
+                Signup with Facebook
+              </button>
+            </React.Fragment>
+          )}
           <Link to="/login" className="link">
             Already have an account? <span>Login</span>
           </Link>
