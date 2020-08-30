@@ -23,11 +23,17 @@ const Navbar = (props: NavbarProps) => {
         <ul>
           {uid ? (
             <React.Fragment>
-              <li>
+              {/* <li>
                 <div className="user">
                   <div className="avatar" style={{ backgroundImage: `url('${photoURL}')` }}></div>
                   {displayName}
                 </div>
+              </li> */}
+              <li>
+                <NavLink to={`/history/${uid}`}>Quizzes History</NavLink>
+              </li>
+              <li>
+                <NavLink to={`/u/${uid}`}>Profile</NavLink>
               </li>
               <li className="pointer" onClick={logout}>
                 Logout
