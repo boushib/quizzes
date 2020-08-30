@@ -1,5 +1,6 @@
 import React from 'react'
 import './Login.scss'
+import { Link } from 'react-router-dom'
 
 type Props = {}
 type State = {
@@ -29,6 +30,9 @@ class Login extends React.Component<Props, State> {
           <input type="text" placeholder="Enter your email" />
           <input type="password" placeholder="Enter your password" />
           <button className="btn">Login</button>
+          <Link to="/signup" className="link">
+            Doesn't have an account? <span>Signup</span>
+          </Link>
         </form>
       </div>
     )
