@@ -62,9 +62,17 @@ a {
   }
   &.google {
     background: #dc4e41;
+    &:hover,
+    &:focus {
+      box-shadow: 0 10px 10px rgba(#dc4e41, 0.2);
+    }
   }
   &.facebook {
     background: #485a96;
+    &:hover,
+    &:focus {
+      box-shadow: 0 10px 10px rgba(#485a96, 0.2);
+    }
   }
 }
 
