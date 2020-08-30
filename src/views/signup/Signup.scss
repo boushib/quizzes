@@ -1,0 +1,12 @@
+.signup {
+  .btn {
+    width: 100%;
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+  }
+  .sep {
+    color: #fff;
+    margin: 10px;
+  }
+}

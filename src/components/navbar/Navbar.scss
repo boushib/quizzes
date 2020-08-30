@@ -18,19 +18,33 @@ nav {
     -webkit-text-fill-color: transparent;
     background-size: 100%;
     filter: drop-shadow(2px 2px #689f38);
+    margin: 6px;
     a {
       font-family: inherit;
     }
   }
   ul {
     display: flex;
+    align-items: center;
     li {
-      padding: 18px;
+      padding: 8px 20px;
       list-style-type: none;
       font-size: 15px;
     }
   }
   a {
     color: inherit;
+  }
+  .user {
+    display: flex;
+    align-items: center;
+  }
+  .avatar {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    margin-right: 8px;
   }
 }

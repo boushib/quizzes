@@ -60,6 +60,12 @@ a {
       box-shadow: 0 10px 10px rgba(#ef6a61, 0.2);
     }
   }
+  &.google {
+    background: #dc4e41;
+  }
+  &.facebook {
+    background: #485a96;
+  }
 }
 
 .btn-group {
@@ -118,7 +124,8 @@ a {
   }
   form {
     background-color: rgba(#fff, 0.1);
-    width: 360px;
+    width: 400px;
+    max-width: 100%;
     padding: 32px;
     border-radius: 10px;
     .btn {
@@ -137,4 +144,8 @@ input[type='password'] {
   width: 100%;
   background-color: #fff;
   margin-bottom: 16px;
+}
+
+.pointer {
+  cursor: pointer;
 }

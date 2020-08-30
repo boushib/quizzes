@@ -1,5 +1,11 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import './Signup.scss'
+
+import { signup } from '../../store/actions/authActions'
+
+import { signInWithGoogle } from '../../config/firebase'
 
 type State = {
   username: string
@@ -8,7 +14,9 @@ type State = {
   passwordConfirmation: string
 }
 
-type Props = {}
+type Props = {
+  signup: Function
+}
 
 class Signup extends React.PureComponent<Props, State> {
   state: State
@@ -22,24 +30,60 @@ class Signup extends React.PureComponent<Props, State> {
     }
   }
 
-  signup = () => {
-    console.log('login..')
+  handleInputChange = (e: any) => {
+    const input = e.currentTarget
+    const input_name = input.getAttribute('name')
+    let state: any = {}
+    state[input_name] = input.value
+    this.setState(state)
+  }
+
+  signup = async (e: any) => {
+    e.preventDefault()
+    const { username, email, password } = this.state
+    this.props.signup({ username, email, password })
+  }
+  signupWithGoogle = async (e: any) => {
+    e.preventDefault()
+    await signInWithGoogle()
+    // const router = useHistory()
+    // router.push('/')
+  }
+  signupWithFacebook = async (e: any) => {
+    e.preventDefault()
+    console.log('signing up with facebook..')
   }
 
   render() {
     return (
       <div className="signup auth-page">
-        <form action="">
+        <form onSubmit={this.signup}>
           <h2>Signup</h2>
-          <input type="text" placeholder="Choose a username" />
-          <input type="email" placeholder="Enter your email" />
-          <input type="password" placeholder="Choose a password" />
-          <input type="password" placeholder="Confirm your password" />
+          <input type="text" name="username" placeholder="Choose a username" onChange={this.handleInputChange} />
+          <input type="email" name="email" placeholder="Enter your email" onChange={this.handleInputChange} />
+          <input type="password" name="password" placeholder="Choose a password" onChange={this.handleInputChange} />
+          <input
+            type="password"
+            name="passwordConfirmation"
+            placeholder="Confirm your password"
+            onChange={this.handleInputChange}
+          />
           <button className="btn">Signup</button>
+          <div className="sep">OR</div>
+          <button className="btn google" onClick={this.signupWithGoogle}>
+            Signup with Google
+          </button>
+          <button className="btn facebook" onClick={this.signupWithFacebook}>
+            Signup with Facebook
+          </button>
         </form>
       </div>
     )
   }
 }
 
-export default Signup
+const mapDispatchToProps = (dispatch: Function) => {
+  return { signup: (user_data: object) => dispatch(signup(user_data)) }
+}
+
+export default connect(null, mapDispatchToProps)(Signup)

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 import QuestionCard from '../components/QuestionCard'
 import Spinner from '../components/spinner/Spinner'
@@ -138,4 +139,8 @@ class Quiz extends React.Component<Props, State> {
   }
 }
 
-export default Quiz
+const mapStateToProps = (state: any) => {
+  return { quiz: state.quizzes.quizz }
+}
+
+export default connect(mapStateToProps)(Quiz)
