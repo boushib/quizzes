@@ -87,9 +87,9 @@ class Signup extends React.PureComponent<Props, State> {
               <button className="btn google" onClick={this.signupWithGoogle}>
                 Signup with Google
               </button>
-              <button className="btn facebook" onClick={this.signupWithFacebook}>
+              {/* <button className="btn facebook" onClick={this.signupWithFacebook}>
                 Signup with Facebook
-              </button>
+              </button> */}
             </React.Fragment>
           )}
           <Link to="/login" className="link">

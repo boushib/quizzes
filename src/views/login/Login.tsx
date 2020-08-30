@@ -55,9 +55,9 @@ class Login extends React.Component<Props, State> {
               <button className="btn google" onClick={this.loginWithGoogle}>
                 Login with Google
               </button>
-              <button className="btn facebook" onClick={this.loginWithFacebook}>
+              {/* <button className="btn facebook" onClick={this.loginWithFacebook}>
                 Login with Facebook
-              </button>
+              </button> */}
             </React.Fragment>
           )}
           <Link to="/signup" className="link">
