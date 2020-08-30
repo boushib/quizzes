@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 import './Signup.scss'
 
 import { signup } from '../../store/actions/authActions'
@@ -76,6 +76,9 @@ class Signup extends React.PureComponent<Props, State> {
           <button className="btn facebook" onClick={this.signupWithFacebook}>
             Signup with Facebook
           </button>
+          <Link to="/login" className="link">
+            Already have an account? <span>Login</span>
+          </Link>
         </form>
       </div>
     )

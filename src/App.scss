@@ -132,6 +132,16 @@ a {
       margin: 0 auto;
     }
   }
+  .link {
+    display: block;
+    color: rgba(#fff, 0.7);
+    font-size: 15px;
+    margin: 20px 0 0;
+    span {
+      text-decoration: underline;
+      color: #fff;
+    }
+  }
 }
 
 input[type='text'],
