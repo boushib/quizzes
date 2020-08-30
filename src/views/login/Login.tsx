@@ -3,16 +3,21 @@ import { signInWithGoogle } from '../../config/firebase'
 import './Login.scss'
 import { Link } from 'react-router-dom'
 
-type Props = {}
+type LoginProps = {
+  history: {
+    push: Function
+  }
+}
+
 type State = {
   email: string
   password: string
   loginMethod: string | null
 }
 
-class Login extends React.Component<Props, State> {
+class Login extends React.Component<LoginProps, State> {
   state: State
-  constructor(props: Props) {
+  constructor(props: LoginProps) {
     super(props)
     this.state = {
       email: '',
@@ -21,15 +26,15 @@ class Login extends React.Component<Props, State> {
     }
   }
 
-  login = () => {
+  login = (e: any) => {
+    e.preventDefault()
     console.log('login..')
   }
 
   loginWithGoogle = async (e: any) => {
     e.preventDefault()
     await signInWithGoogle()
-    // const router = useHistory()
-    // router.push('/')
+    this.props.history.push('/')
   }
   loginWithFacebook = async (e: any) => {
     e.preventDefault()
@@ -39,7 +44,7 @@ class Login extends React.Component<Props, State> {
   render() {
     return (
       <div className="login auth-page">
-        <form action="">
+        <form onSubmit={this.login}>
           <h2>Login</h2>
           {this.state.loginMethod === 'email' ? (
             <React.Fragment>

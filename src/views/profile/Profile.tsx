@@ -24,8 +24,8 @@ class Profile extends React.Component {
 
   async componentDidMount() {
     console.log(this.props)
-    const users = await firestore.collection('users').get()
-    console.log({ users })
+    const user = await firestore.collection('users').doc('9LK1e5zS7pwEBtUxaD2u').get()
+    console.log({ user })
   }
 
   render() {

@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
-import { useHistory, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import './Signup.scss'
 
 import { signup } from '../../store/actions/authActions'
@@ -17,6 +17,9 @@ type State = {
 
 type Props = {
   signup: Function
+  history: {
+    push: Function
+  }
 }
 
 class Signup extends React.PureComponent<Props, State> {
@@ -48,8 +51,7 @@ class Signup extends React.PureComponent<Props, State> {
   signupWithGoogle = async (e: any) => {
     e.preventDefault()
     await signInWithGoogle()
-    // const router = useHistory()
-    // router.push('/')
+    this.props.history.push('/')
   }
   signupWithFacebook = async (e: any) => {
     e.preventDefault()
