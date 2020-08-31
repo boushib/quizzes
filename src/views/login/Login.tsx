@@ -1,18 +1,23 @@
 import React from 'react'
-import { signInWithGoogle } from '../../config/firebase'
+import { signInWithGoogle, auth } from '../../config/firebase'
 import './Login.scss'
 import { Link } from 'react-router-dom'
 
-type Props = {}
+type LoginProps = {
+  history: {
+    push: Function
+  }
+}
+
 type State = {
   email: string
   password: string
   loginMethod: string | null
 }
 
-class Login extends React.Component<Props, State> {
+class Login extends React.Component<LoginProps, State> {
   state: State
-  constructor(props: Props) {
+  constructor(props: LoginProps) {
     super(props)
     this.state = {
       email: '',
@@ -21,15 +26,27 @@ class Login extends React.Component<Props, State> {
     }
   }
 
-  login = () => {
-    console.log('login..')
+  handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target
+    this.setState({ [name]: value } as Pick<State, keyof State>)
+  }
+
+  login = async (e: any) => {
+    e.preventDefault()
+    try {
+      const { email, password } = this.state
+      const res = await auth.signInWithEmailAndPassword(email, password)
+      const { user } = res
+      if (user && user.uid) this.props.history.push('/')
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   loginWithGoogle = async (e: any) => {
     e.preventDefault()
     await signInWithGoogle()
-    // const router = useHistory()
-    // router.push('/')
+    this.props.history.push('/')
   }
   loginWithFacebook = async (e: any) => {
     e.preventDefault()
@@ -39,12 +56,17 @@ class Login extends React.Component<Props, State> {
   render() {
     return (
       <div className="login auth-page">
-        <form action="">
+        <form onSubmit={this.login}>
           <h2>Login</h2>
           {this.state.loginMethod === 'email' ? (
             <React.Fragment>
-              <input type="text" placeholder="Enter your email" />
-              <input type="password" placeholder="Enter your password" />
+              <input type="email" name="email" placeholder="Enter your email" onChange={this.handleInputChange} />
+              <input
+                type="password"
+                name="password"
+                placeholder="Enter your password"
+                onChange={this.handleInputChange}
+              />
               <button className="btn">Login</button>
             </React.Fragment>
           ) : (
