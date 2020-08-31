@@ -5,7 +5,7 @@ import './Signup.scss'
 
 import { signup } from '../../store/actions/authActions'
 
-import { signInWithGoogle } from '../../config/firebase'
+import { signInWithGoogle, firestore, auth } from '../../config/firebase'
 
 type State = {
   username: string
@@ -35,23 +35,34 @@ class Signup extends React.PureComponent<Props, State> {
     }
   }
 
-  handleInputChange = (e: any) => {
-    const input = e.currentTarget
-    const input_name = input.getAttribute('name')
-    let state: any = {}
-    state[input_name] = input.value
-    this.setState(state)
+  handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target
+    this.setState({ [name]: value } as Pick<State, keyof State>)
   }
 
   signup = async (e: any) => {
     e.preventDefault()
-    const { username, email, password } = this.state
-    this.props.signup({ username, email, password })
+    try {
+      const { username, email, password, passwordConfirmation } = this.state
+      if (password !== passwordConfirmation) return alert("Passwords don't match!")
+      const snapshot = await firestore.collection('users').where('email', '==', email).get()
+      console.log(snapshot)
+      if (snapshot.empty) {
+        await firestore.collection('users').doc().set({ username, email, password })
+        this.props.history.push('/')
+      } else alert('User already exists with this email address!')
+    } catch (err) {
+      console.log(err)
+    }
   }
   signupWithGoogle = async (e: any) => {
     e.preventDefault()
-    await signInWithGoogle()
-    this.props.history.push('/')
+    try {
+      await signInWithGoogle()
+      this.props.history.push('/')
+    } catch (err) {
+      console.log(err)
+    }
   }
   signupWithFacebook = async (e: any) => {
     e.preventDefault()

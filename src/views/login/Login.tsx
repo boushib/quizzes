@@ -1,5 +1,5 @@
 import React from 'react'
-import { signInWithGoogle } from '../../config/firebase'
+import { signInWithGoogle, auth } from '../../config/firebase'
 import './Login.scss'
 import { Link } from 'react-router-dom'
 
@@ -26,9 +26,21 @@ class Login extends React.Component<LoginProps, State> {
     }
   }
 
-  login = (e: any) => {
+  handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target
+    this.setState({ [name]: value } as Pick<State, keyof State>)
+  }
+
+  login = async (e: any) => {
     e.preventDefault()
-    console.log('login..')
+    try {
+      const { email, password } = this.state
+      const res = await auth.signInWithEmailAndPassword(email, password)
+      const { user } = res
+      if (user && user.uid) this.props.history.push('/')
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   loginWithGoogle = async (e: any) => {
@@ -48,8 +60,13 @@ class Login extends React.Component<LoginProps, State> {
           <h2>Login</h2>
           {this.state.loginMethod === 'email' ? (
             <React.Fragment>
-              <input type="text" placeholder="Enter your email" />
-              <input type="password" placeholder="Enter your password" />
+              <input type="email" name="email" placeholder="Enter your email" onChange={this.handleInputChange} />
+              <input
+                type="password"
+                name="password"
+                placeholder="Enter your password"
+                onChange={this.handleInputChange}
+              />
               <button className="btn">Login</button>
             </React.Fragment>
           ) : (
